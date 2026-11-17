@@ -1,0 +1,14 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+db.sqlite3
+.pytest_cache/
+htmlcov/
+.coverage
+staticfiles/
+media/
+.DS_Store
+.idea/
+.vscode/
+Video_talking_point.md

@@ -1,0 +1,46 @@
+{
+  "info": {
+    "name": "CollabDocs API",
+    "_postman_id": "d4f16ca9-0a6b-4d15-b7c7-collabdocs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "base_url", "value": "http://localhost:8002"},
+    {"key": "user_id", "value": "REPLACE_USER_ID"},
+    {"key": "workspace_id", "value": "REPLACE_WORKSPACE_ID"},
+    {"key": "document_id", "value": "REPLACE_DOCUMENT_ID"},
+    {"key": "comment_id", "value": "REPLACE_COMMENT_ID"},
+    {"key": "tag_id", "value": "REPLACE_TAG_ID"}
+  ],
+  "item": [
+    {"name": "Users", "item": [
+      {"name": "Create user", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"first_name\":\"Asha\",\"last_name\":\"Rao\",\"email\":\"asha@example.com\",\"phone\":\"+911234567890\"}"}, "url": "{{base_url}}/api/users/"}},
+      {"name": "Get user", "request": {"method": "GET", "url": "{{base_url}}/api/users/{{user_id}}/"}}
+    ]},
+    {"name": "Workspaces", "item": [
+      {"name": "Create workspace", "request": {"method": "POST", "body": {"mode": "raw", "raw": "{\"name\":\"Product team\",\"owner_id\":\"REPLACE_USER_ID\"}"}, "url": "{{base_url}}/api/workspaces/"}},
+      {"name": "Get workspace", "request": {"method": "GET", "url": "{{base_url}}/api/workspaces/{{workspace_id}}/"}},
+      {"name": "Add member", "request": {"method": "POST", "body": {"mode": "raw", "raw": "{\"user_id\":\"REPLACE_USER_ID\",\"role\":\"editor\"}"}, "url": "{{base_url}}/api/workspaces/{{workspace_id}}/members/"}},
+      {"name": "List members", "request": {"method": "GET", "url": "{{base_url}}/api/workspaces/{{workspace_id}}/members/"}},
+      {"name": "Workspace summary", "request": {"method": "GET", "url": "{{base_url}}/api/workspaces/{{workspace_id}}/summary/"}}
+    ]},
+    {"name": "Documents", "item": [
+      {"name": "Create document", "request": {"method": "POST", "body": {"mode": "raw", "raw": "{\"title\":\"Runbook\",\"content\":\"Initial content\",\"workspace\":\"REPLACE_WORKSPACE_ID\",\"created_by_id\":\"REPLACE_USER_ID\",\"status\":\"draft\"}"}, "url": "{{base_url}}/api/documents/"}},
+      {"name": "Update document", "request": {"method": "PUT", "body": {"mode": "raw", "raw": "{\"title\":\"Runbook\",\"content\":\"Updated content\",\"workspace\":\"REPLACE_WORKSPACE_ID\",\"status\":\"published\"}"}, "url": "{{base_url}}/api/documents/{{document_id}}/"}},
+      {"name": "List documents", "request": {"method": "GET", "url": "{{base_url}}/api/documents/?workspace={{workspace_id}}&status=draft&search=run"}},
+      {"name": "Document versions", "request": {"method": "GET", "url": "{{base_url}}/api/documents/{{document_id}}/versions/"}},
+      {"name": "Document stats", "request": {"method": "GET", "url": "{{base_url}}/api/documents/{{document_id}}/stats/"}},
+      {"name": "Add tags", "request": {"method": "POST", "body": {"mode": "raw", "raw": "{\"tag_ids\":[\"REPLACE_TAG_ID\"]}"}, "url": "{{base_url}}/api/documents/{{document_id}}/tags/"}}
+    ]},
+    {"name": "Comments", "item": [
+      {"name": "Create comment", "request": {"method": "POST", "body": {"mode": "raw", "raw": "{\"document\":\"REPLACE_DOCUMENT_ID\",\"content\":\"Please review this.\"}"}, "url": "{{base_url}}/api/comments/"}},
+      {"name": "List comments", "request": {"method": "GET", "url": "{{base_url}}/api/comments/?document={{document_id}}"}}
+    ]},
+    {"name": "Tags", "item": [
+      {"name": "Create tag", "request": {"method": "POST", "body": {"mode": "raw", "raw": "{\"name\":\"python\"}"}, "url": "{{base_url}}/api/tags/"}}
+    ]},
+    {"name": "Audit Logs", "item": [
+      {"name": "List audit logs", "request": {"method": "GET", "url": "{{base_url}}/api/audit-logs/?actor={{user_id}}"}}
+    ]}
+  ]
+}
